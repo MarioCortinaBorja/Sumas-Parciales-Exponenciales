@@ -1,3 +1,6 @@
+library(ggplot2)
+library(easyGgplot2)
+
 
 plot.expsum<-
 function(expr=NULL, fecha=NULL, coef2=NULL, asintota=NULL, gauss=NULL,
@@ -105,3 +108,77 @@ function(expr=NULL, fecha=NULL, coef2=NULL, asintota=NULL, gauss=NULL,
   if(regresa) return(invisible(df))
   else return(invisible(p1))
 }
+
+
+########################## ejemplos
+###############################################################################
+
+### figura 1
+
+p1<- plot.expsum2(gauss=c(1, 1024), regresa=FALSE)
+p2<- plot.expsum2(gauss=c(1.5, 1024), regresa=FALSE)
+p3<- plot.expsum2(gauss=c(2, 1024), regresa=FALSE)
+p4<- plot.expsum2(gauss=c(3, 1024), regresa=FALSE)
+
+ggsave(filename='Plots/Fig1.jpeg', plot=ggplot2.multiplot(p1,p2, p3,p4, cols=2), 
+       device='jpg', dpi=600)
+
+### figura 2
+
+p1<-plot.expsum2(gauss=c(2, 1002)) ### traversed
+p2<-plot.expsum2(gauss=c(2, 1003)) ### nice
+
+ggsave(filename='Plots/Fig2.jpeg', plot=ggplot2.multiplot(p1,p2, cols=2), 
+       device='jpg', dpi=600)
+
+
+
+### figura 3
+
+
+
+p1<- plot.expsum2(coef2=1, N1=500)
+p2<- plot.expsum2(coef2=10, N1=500)
+p3<- plot.expsum2(coef2=100, N1=500)
+p4<- plot.expsum2(coef2=1000, N1=500)
+
+
+ggsave(filename='Plots/Fig3.jpeg', plot=ggplot2.multiplot(p1,p2, p3,p4, cols=2), 
+       device='jpg', dpi=600)
+
+
+### Figura 4
+p1<- plot.expsum2(coef2=1, N1=5000)
+p2<- plot.expsum2(coef2=10, N1=5000)
+p3<- plot.expsum2(coef2=100, N1=5000)
+p4<- plot.expsum2(coef2=1000, N1=5000)
+
+
+ggsave(filename='Plots/Fig4.jpeg', plot=ggplot2.multiplot(p1,p2, p3,p4, cols=2), 
+       device='jpg', dpi=600)
+
+
+### Figura 5
+p1<- plot.expsum2(coef2=1024, N0=0, N1=1024) ### ex chaos
+p2<- plot.expsum2(coef2=1024, N0=0, N1=2048) ### ex chaos
+p3<- plot.expsum2(coef2=1024, N0=0, N1=4096) ### ex chaos
+p4<- plot.expsum2(coef2=1024, N0=0, N1=40096) ### ex chaos
+
+
+ggsave(filename='Plots/Fig5.jpeg', plot=ggplot2.multiplot(p1,p2, p3,p4, cols=2), 
+       device='jpg', dpi=600)
+
+
+### Figura 6 - espiral
+
+ggsave(filename="Plots/Fig6.jpeg", plot=plot.expsum1(expr=log(x)))
+
+ggsave(filename="Plots/Fig7.jpeg", plot=plot.expsum1(expr=log(x)^4, N0=1, N1=5000))
+### monstruo de Loch Ness
+
+ggsave(filename="Plots/Fig8.jpeg", plot=plot.expsum1(expr=log(x)^7, N0=1, N1=5000))
+## Vía Láctea
+
+
+
+
